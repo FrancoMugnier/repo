@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+    Editar Post
+{% endblock %}
+{% block content %}
+</br>
+{% if user.is_authenticated %}
+    {% if user.is_authenticated %}
+        <h1>Editar Post...</h1>
+        </br>
+        <div class="mb-3">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.media }}
+                {{ form.as_p }}
+                <button class="btn btn-outline-secondary">Actualizar</button>
+        </div>
+    {% else %}
+
+        <h2>No tienes permiso para editar, agregar post o eliminarlo, debes ingresar sesión ...</h2>
+        
+    {% endif %}
+    
+{% else %}
+
+No tienes permiso para editar, agregar post o eliminarlo, debes ingresar sesión ...
+
+{% endif %}
+
+{% endblock %}

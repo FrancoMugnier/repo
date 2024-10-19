@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+    Editar Perfil
+{% endblock %}
+{% block content %}
+</br>
+{% if user.is_authenticated %}
+    {% if user.id == profile.user.id %}
+        <h1>Editar Perfil...</h1>
+        </br>
+        <div class="form-group">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-outline-secondary">Editar Perfil</button>
+        </div>
+    {% else %}
+
+        No tienes permiso para editar, agregar post o eliminarlo, debes ingresar sesión ...
+        
+    {% endif %}
+
+{% else %}
+
+    No eres el ususario correcto para editar esta pagina
+
+{% endif %}
+
+{% endblock %}

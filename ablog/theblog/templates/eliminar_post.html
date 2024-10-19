@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Eliminar Post
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    {% if user.is_authenticated %}
+        </br>
+        <h1>Eliminar Post...</h1>
+        </br>
+        <h3>Eliminar: {{ post.title }}</h3>
+        </br>
+        <div class="mb-3">
+            <form method="POST">
+                {% csrf_token %}
+                <strong>Estas seguro?</strong><br/><br/>
+                <button class="btn btn-outline-secondary">Eliminar Post</button>
+        </div>
+    {% else %}
+
+        No tienes permiso para editar, agregar post o eliminarlo, debes ingresar sesión ...
+            
+    {% endif %}
+    
+{% else %}
+
+No tienes permiso para editar, agregar post o eliminarlo, debes ingresar sesión ...
+    
+{% endif %}
+
+{% endblock %}

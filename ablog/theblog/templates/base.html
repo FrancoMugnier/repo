@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      {% block title %}
+        OpenBits
+      {% endblock %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'theblog/css/style.css' %}">
+  </head>
+  <body>
+    <!--aca empieza el navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home' %}">Inicio</a> <!--llama a home-->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              {% if cat_menu %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Categorías
+                  </a>
+                  <ul class="dropdown-menu">
+                    {% for item in cat_menu %}
+                      <a class="dropdown-item" href="{% url 'category' item %}"> {{ item }} </a>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'category-list' %}">Categorias</a>
+                </li>
+              {% endif %}
+              <!--  vamos a probar aca-->
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'acerca_de' %}">Acerca de</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
+              </li>
+
+              {% if user.is_authenticated %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'agregar-post' %}">Agregar Post</a>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'agregar-categoria' %}">Agregar Categoria</a>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link btn btn-link" style="padding: 0; border: none; background: none;">
+                            Cerrar Sesión
+                        </button>
+                    </form>
+                  </li>
+              {% else %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'registrarse' %}">Registrarse</a>
+                  </li>
+
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'login' %}">Ingresar</a>
+                  </li>
+              {% endif %}
+            </ul>
+            {% if user.is_authenticated %}
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {{ user.first_name}} {{ user.last_name}}
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'editar_perfil' %}">Editar</a></li>
+                      {% if user.profile.id %}
+                        <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id %}">Editar página del Perfil</a></li>
+                        <li><a class="dropdown-item" href="{% url 'show_profile_page' user.profile.id %}">Ir a Pagina del Perfil</a></li>
+                      {% else %}
+                        <li><a class="dropdown-item" href="{% url 'create_profile_page'%}">Crear página del Perfil</a></li>                       
+                      {% endif %}
+                    </ul>
+                  </li>
+                </ul>
+            {% endif %}
+            <!--
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="buscar algo..." aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+              -->
+          </div>
+        </div>
+      </nav>
+    <!--aca termina el navbar-->
+
+    <!--aca empieza el contenedor-->
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <!--aca termina el contenedor-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>

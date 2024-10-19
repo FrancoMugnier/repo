@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+    Agrega un Post!
+{% endblock %}
+{% block content %}
+</br>
+{% if user.is_authenticated %}
+    <h1>Agregar Post...</h1>
+    </br>
+    <div class="form-group">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <button class="btn btn-outline-secondary">Post</button>
+    </div>
+    <script>
+
+        var name='{{ user.username }}';
+        document.getElementById('frank').value=name;
+
+    </script>
+{% else %}
+
+    No tienes permiso para editar, agregar post o eliminarlo, debes ingresar sesión ...
+    
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+    Crear una nueva página de Perfil
+{% endblock %}
+{% block content %}
+</br>
+{% if user.is_authenticated %}
+    <h1>Crear una nueva página de Perfil...</h1>
+    </br>
+    <div class="form-group">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-outline-secondary">Crear una nueva página de Perfil</button>
+    </div>
+{% else %}
+
+    No tienes permiso para editar, agregar post o eliminarlo, debes ingresar sesión ...
+    
+{% endif %}
+
+{% endblock %}
