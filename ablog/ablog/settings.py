@@ -79,10 +79,14 @@ WSGI_APPLICATION = 'ablog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'francogabriel202$info',  # Cambia por el nombre de tu base de datos
+        'USER': 'francogabriel202',            # Cambia por tu usuario de MySQL
+        'PASSWORD': 'Root12345',     # Cambia por tu contraseña de MySQL
+        'HOST': 'francogabriel2024.mysql.pythonanywhere-services.com',                   # O la dirección IP de tu servidor MySQL si no es local
+        'PORT': '3306',                        # Puerto de MySQL (el puerto predeterminado es 3306)
+        }
     }
-}
 
 
 # Password validation
